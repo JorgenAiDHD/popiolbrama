@@ -1,0 +1,36 @@
+{
+	"mcpServers": {
+		"blender": {
+			"type": "stdio",
+			"command": "python",
+			"args": [
+				"-m",
+				"uv",
+				"tool",
+				"run",
+				"mcp-for-blender"
+			],
+			"tools": [
+				"*"
+			],
+			"env": {
+				"PYTHONUTF8": "1"
+			}
+		},
+		"rea": {
+			"type": "stdio",
+			"command": "C:\\Users\\creat\\tools\\node24\\npx.cmd",
+			"args": [
+				"-y",
+				"rea-agents@6.7.0",
+				"mcp"
+			],
+			"tools": [
+				"*"
+			],
+			"env": {
+				"PATH": "C:\\Users\\creat\\tools\\node24;${PATH}"
+			}
+		}
+	}
+}

@@ -1,0 +1,18 @@
+import { chromium } from 'playwright';
+import { createServer } from 'vite';
+const server = await createServer({ server: { port: 5191, host: '127.0.0.1' }, logLevel: 'error' });
+await server.listen();
+const browser = await chromium.launch({ args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+await ctx.addInitScript(() => localStorage.setItem('popiolbrama.meta2', JSON.stringify({ classes: ['wojownik', 'mag', 'lowca', 'czarnoksieznik'], mute: true, hq: true })));
+const page = await ctx.newPage();
+await page.goto('http://127.0.0.1:5191/?debug');
+await page.waitForSelector('#go');
+await page.click('#cl .cls:nth-child(2)');
+await page.click('#go');
+await page.evaluate(() => { const g = window.__g; g.god(true); g.noSpawn(); g.zoom(0.75); g.warp(175); });
+await page.waitForTimeout(6000);
+await page.evaluate(() => { const g = window.__g; g.freeze(true); g.tele(); g.spawnAt('wilk', -3, -3); g.spawnAt('czarownik', 4, -2); g.spawnAt('topielec', -5, 3); });
+await page.waitForTimeout(350);
+await page.screenshot({ path: 'shot-las2.png' });
+await browser.close(); await server.close();

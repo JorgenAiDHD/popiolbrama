@@ -1,0 +1,50 @@
+import { chromium } from 'playwright';
+import { createServer } from 'vite';
+const server = await createServer({ server: { port: 5188, host: '127.0.0.1' }, logLevel: 'error' });
+await server.listen();
+const browser = await chromium.launch({ args: ['--use-gl=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'] });
+const ctx = await browser.newContext({ viewport: { width: 1280, height: 720 } });
+await ctx.addInitScript(() => localStorage.setItem('popiolbrama.meta2', JSON.stringify({ ash: 300, classes: ['wojownik', 'mag', 'lowca', 'czarnoksieznik', 'paladyn', 'lotr', 'druid', 'szaman'], mute: true, hq: true, arkana: ['pijak'], deck: ['pijak'] })));
+const page = await ctx.newPage();
+const errs = [];
+page.on('pageerror', e => errs.push(e.message));
+await page.goto('http://127.0.0.1:5188/?debug');
+await page.waitForSelector('#go');
+await page.waitForTimeout(800);
+await page.screenshot({ path: 'shots/v03-menu.png' });
+// podgląd drogi: przewiń do karty
+await page.evaluate(() => document.getElementById('pv').scrollIntoView({ block: 'center' }));
+await page.waitForTimeout(300);
+await page.screenshot({ path: 'shots/v03-wybor-drogi.png' });
+// osiem postaci w menu (bohater obraca się po prawej)
+for (let i = 0; i < 8; i++) {
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.click(`#cl .cls:nth-child(${i + 1})`);
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: `shots/v03-postac-${i}.png`, clip: { x: 640, y: 120, width: 640, height: 480 } });
+}
+await page.click('#cl .cls:nth-child(5)');
+await page.click('#go');
+await page.evaluate(() => { const g = window.__g; g.god(true); g.noSpawn(); g.zoom(0.75); g.hp(60); });
+await page.waitForTimeout(1200);
+await page.evaluate(() => { for (let i = 0; i < 6; i++) window.__g.spawnAt(['szczur', 'wilk', 'szkielet'][i % 3], 4 + i, -3 + i); });
+await page.waitForTimeout(900);
+await page.screenshot({ path: 'shots/v03-walka.png' });
+await page.evaluate(() => { const g = window.__g; g.freeze(true); let u, it; for (let i = 0; i < 400 && !u; i++) { const l = g.rollLoot('paladyn', 5, 1); u = l.find(x => x.rarity === 'unikalny'); } g.equipItem(u); for (const c of ['mag', 'lotr', 'druid']) { const l = g.rollLoot('paladyn', 3, 1).find(x => x.rarity === 'rzadki' && !x.cls); if (l && l.slot !== 'bron') g.equipItem(l); } });
+await page.keyboard.press('KeyI');
+await page.waitForSelector('#inv:not(.hide)');
+await page.click('#inv .islot[data-s=bron]');
+await page.waitForTimeout(300);
+await page.screenshot({ path: 'shots/v03-ekwipunek.png' });
+await page.keyboard.press('KeyI');
+await page.evaluate(() => { const g = window.__g; g.chest(1); });
+await page.waitForSelector('#lvl:not(.hide) .card');
+await page.waitForTimeout(500);
+await page.screenshot({ path: 'shots/v03-skrzynia.png' });
+await page.evaluate(() => { document.querySelector('#lvl .card').click; });
+await page.evaluate(() => { window.__g.gold(400); window.__g.openTown(); });
+await page.waitForSelector('#town:not(.hide) .tcard');
+await page.waitForTimeout(600);
+await page.screenshot({ path: 'shots/v03-przystan.png' });
+console.log('bledy:', errs.length, errs.slice(0, 3));
+await browser.close(); await server.close();

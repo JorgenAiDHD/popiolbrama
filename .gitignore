@@ -1,0 +1,36 @@
+# zależności i build (odtwarzane: npm install, npm run build)
+node_modules/
+dist/
+
+# kopie single-file buildów (duże, odtwarzalne; wersje lepiej publikować jako GitHub Release)
+releases/*.html
+releases/rea/
+
+# zrzuty ekranu i pliki robocze testów
+shots/
+smoke-*.png
+s_cards.png
+shot-*.png
+*.tmp
+.verify*.txt
+.bal*.txt
+scripts/.tmp-*
+scripts/.diag-*
+
+# Unity (projekt laboratoryjny): tylko Assets, Packages, ProjectSettings
+unity-lab/Library/
+unity-lab/Logs/
+unity-lab/Temp/
+unity-lab/obj/
+unity-lab/UserSettings/
+unity-lab/*.csproj
+unity-lab/*.sln
+unity-lab/.vs/
+unity-lab/.idea/
+
+# edytory i system
+.vs/
+.idea/
+Thumbs.db
+.DS_Store
+*.log
