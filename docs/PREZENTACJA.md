@@ -7,7 +7,7 @@ paginate: true
 # Popiółbrama – żywa prezentacja projektu
 
 Aktualizowana na końcu każdej sesji. Czytaj ją najpierw, zamiast pytać od nowa.
-Ostatnia aktualizacja: 2026-10-22
+Ostatnia aktualizacja: 2026-10-25
 
 ---
 
@@ -39,7 +39,7 @@ Ostatnia aktualizacja: 2026-10-22
 - Wydajność (swiftshader, v0.3): 8 wrogów 36 FPS, 62 wrogów 27, 201 wrogów 20; draw calle 42 / 134 / ok. 300 (bez regresji względem v0.2).
 - Balans (boty, Normalna, wygrana = pokonanie Króla): domyślny bot: Wojownik 2/8, Mag 3/8, Łowca 4/8, Czarnoksiężnik 2/8, Paladyn 2/8, Łotr 1/8, Szaman 1/8, Druid 1/6. Bot z opcją `boss` (walka wręcz idzie do bossa): 6/8, 6/8, 4/8, 7/8, 8/8, 6/8, 3/8 (Szaman), Druid 8/8. Druid 0/10 był artefaktem bota. Realny poziom trudności dla gracza walczącego z bossem wręcz jest więc prawdopodobnie niższy niż pokazuje domyślny bot: do oceny w graniu.
 - Uruchamianie: `Graj.bat` lub `npm start`. `npm run dev` tylko do pracy nad kodem.
-- Git: gałąź `main`, lokalna historia alfy v0.3 i planu wizualnego; `origin` wskazuje prywatne repo `JorgenAiDHD/popiolbrama`. Publikacja niepotwierdzona: GitHub odrzuca push kodem 403, także z uwierzytelnieniem przez `gh`.
+- Git: alfa v0.3, plan wizualny i README opublikowane w prywatnym repo `JorgenAiDHD/popiolbrama`. Gałąź `main` śledzi `origin/main`; zgodność SHA potwierdzona przez API GitHuba. Build i 66 testów ponownie przeszły 2026-10-25.
 
 ---
 
@@ -89,6 +89,7 @@ Zasada: nowy skill dopiero gdy ta sama wiedza wraca trzeci raz.
 - REA tylko do legalnej analizy (własne / za zgodą / interoperacyjność), wynik jako specyfikacja.
 - Pierwotne założenie "Unity bez edytora" było błędne: edytor 6000.6.7f1 jest zainstalowany.
 - GitHub: zachowujemy istniejącą historię; kolejne zmiany jako nowe commity, bez ponownego `git init`, nadpisywania `origin` i force-push.
+- GitHub 403 wynikał z konfliktu nagłówka autoryzacji w konfiguracji Gita z poświadczeniami `gh`. Push zadziałał po wyczyszczeniu `http.https://github.com/.extraheader` wyłącznie dla tego polecenia i użyciu helpera `gh auth git-credential`; bez zmian globalnej konfiguracji i bez ujawniania tokenów.
 
 ---
 
@@ -101,7 +102,7 @@ Zasada: nowy skill dopiero gdy ta sama wiedza wraca trzeci raz.
 - Czy Król topielców pada za łatwo, gdy walczy się z nim wręcz (bot z opcją `boss` wygrywa 6-8/8)? Wymaga Twojego grania; ikony Arkanów, test na prawdziwym telefonie, animacje ataku nowych dróg, modele nowych dróg z Blendera zamiast kodu.
 - Zestawy przedmiotów, sockety, Nemesis B (blizna, odporność), chodliwa przystań 3D: poza zakresem v0.3.
 - Pomiar kosztu: wpisywać w raportach z widoku użycia VS Code.
-- Dokończyć wysłanie `main` do GitHuba po uzyskaniu działającego uwierzytelnienia z prawem zapisu. Repo zdalne było puste podczas ostatniej kontroli; lokalne commity pozostają zachowane.
+- Omówić i zatwierdzić wariant warstwy wizualnej z `docs/PLAN-WIZUALNY.md`; plan pozostaje roboczy. Publikacja na GitHubie zakończona.
 
 ---
 
@@ -114,6 +115,6 @@ Zasada: nowy skill dopiero gdy ta sama wiedza wraca trzeci raz.
 - Sesja 7: REA, Unity i Blender przez MCP/CLI, bank wiedzy, koszty i raporty.
 - Sesja 8: alfa v0.2 (Arkana, Pakty, fiolka, ognisko, bramy, wypalenie), modele z Blendera (CLI i żywy MCP), REA na buildach.
 - Sesja 9: alfa v0.3 "Przystań": badania, plan z krytyką, rzadkości i unikaty, ekwipunek (I), ród + osiem dróg + ikony, przystań po strażniku, zwód i poise, płynność, balans botami, własne granie.
-- Publikacja: lokalna historia Git, roboczy plan warstwy wizualnej i README z uruchamianiem; push zablokowany przez GitHub (403). Błąd `cannot lock ref HEAD ... expected ...` wskazywał zmianę HEAD w trakcie commita, nie brak inicjalizacji repo.
+- Publikacja: historia Git, roboczy plan warstwy wizualnej i README wysłane do prywatnego repo GitHub. Naprawiono konflikt uwierzytelnienia powodujący 403; zgodność lokalnej i zdalnej `main` potwierdzona. Błąd `cannot lock ref HEAD ... expected ...` wskazywał zmianę HEAD w trakcie commita, nie brak inicjalizacji repo.
 
 (Dopisuj jedną linię na sesję.)
